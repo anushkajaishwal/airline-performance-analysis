@@ -1,4 +1,4 @@
-# ✈️ Airline Operational Performance & Predictive Delay Engine
+#  Airline Operational Performance & Predictive Delay Engine
 
 An end-to-end data analytics and data science engineering project that bridges **Descriptive Analytics (Power BI)** to diagnose historical bottleneck trends and **Predictive Analytics (Python / Machine Learning)** to forecast operational delay states in real-time.
 
@@ -49,7 +49,7 @@ The dataset suffered from an extreme class imbalance (~97% Delayed vs ~3% On-Tim
 
 ---
 
-## 🚀 Local Execution Setup
+##  Local Execution Setup
 
 1. Clone this repository to your machine:
    ```bash
