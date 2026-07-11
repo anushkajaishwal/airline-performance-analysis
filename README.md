@@ -25,6 +25,14 @@ The descriptive tier focuses on converting raw chaotic flight logs into structur
 
 To complement historical insights, a predictive pipeline was engineered using **Scikit-Learn** to determine the structural probability of flight delays (`is_delayed`) based on dynamic inputs: Carrier, Airport Code, Month, and Traffic Density.
 
+## 🔗 Dataset Repository & Operational Data Source
+To local execution environments target dependencies execute, down-stream scripts rely on the master 20-year U.S. Airline Performance Statistics schema.
+
+* **Data Asset Identifier:** `abdelazizel7or/airline-delay-cause`
+* **Direct Repository Engine Link:** [Kaggle Dataset Hub](https://www.kaggle.com/datasets/abdelazizel7or/airline-delay-cause)
+
+> ** Execution Pre-requisite Note:** In order to replicate the comparative evaluation benchmarks locally, download the raw payload from the link above, rename the tabular index to exactly `Airline_Delay_Cause.csv`, and persist it directly into the root execution workspace directory containing the `train_model.py` operational file.
+
 ###  The Machine Learning Challenge & Evolution
 The dataset suffered from an extreme class imbalance (~97% Delayed vs ~3% On-Time flights). A naive model would simply learn to guess "Delayed" for every flight to score high accuracy while failing to detect on-time states. To combat this **Accuracy Paradox**, the pipeline was structurally evolved across three phases:
 
