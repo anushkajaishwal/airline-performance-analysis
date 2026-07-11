@@ -1,29 +1,51 @@
-# Airline Operational Efficiency & Delay Cause Analytics
+#  Airline Operational Performance & Delay Prediction Engine
 
-A comprehensive Data Analytics project built in **Power BI Desktop** using a dataset spanning multiple years of flight records. This project focuses on evaluating operational health, identifying bottlenecks, and breaking down the primary drivers behind flight delays.
-
-## 📊 Live Dashboard Previews
-<img width="1320" height="732" alt="image" src="https://github.com/user-attachments/assets/bbdf8183-7847-41e8-9175-58f150d09de1" />
-
-<img width="1300" height="731" alt="image" src="https://github.com/user-attachments/assets/fc67b38a-2632-40e4-b3a3-af7a20190f6c" />
-
-## 🚀 Key Features & Architectural Highlights
-* **Star Schema Data Modeling:** Engineered a robust dimensional model by separating data into fact and dimension tables, connected via optimal `One-to-Many (1:*)` relationships.
-* **Power Query ETL Pipeline:** Standardized mixed-text formats, split complex strings to extract clean geographic properties (City, State, Airport Name), handled null values, and generated explicit continuous timeline indexes using M-Code.
-* **Explicit DAX Measures:** Wrote robust calculations using time intelligence and filter-context manipulations (e.g., `DIVIDE`, `SUM`, `CALCULATE`) rather than relying on default implicit fields.
-* **Advanced AI Visuals & UI/UX:** Implemented interactive slicers, structured negative space grids, dynamic data labels, and a **Decomposition Tree** for user-driven root-cause exploration.
+An end-to-end data analytics and data science project that combines **Descriptive Analytics (Power BI)** to audit historical flight delays and **Predictive Analytics (Machine Learning using Python)** to forecast operational delay states in real-time.
 
 ---
 
-## 💡 Core DAX Measures Used
-// 1. Total Flights Logged
-Total_Flights = SUM('Airline_Delay_Cause'[arr_flights])
+##  Project Architecture & Workflow
+1. **Data Cleaning & Imputation:** Handled missing values using statistical Median Imputation for numeric attributes and localized token masking for categorical entries to preserve dataset volume.
+2. **Descriptive Analytics:** Engineered a Power BI Dashboard utilizing advanced DAX measures to analyze delay causes, carrier efficiency, and airport congestion points.
+3. **Feature Engineering & Transformation:** Applied One-Hot Encoding to categorical columns (`carrier_name`, `airport`) to eliminate ordinal bias and integrated route capacity features (`arr_flights`).
+4. **Predictive Modeling:** Developed a sequential learning pipeline using **Gradient Boosting (XGBoost/GBM framework)** tuned with weighted balancing to handle severe class disparity.
 
-// 2. Delayed Flights Count (>15 Mins)
-Delayed_Flights = SUM('Airline_Delay_Cause'[arr_del15])
+---
 
-// 3. On-Time Performance Rating (OTP %)
-On_Time_Performance_% = DIVIDE([Total_Flights] - [Delayed_Flights], [Total_Flights], 0)
+##  Machine Learning Model Performance Comparison
 
-// 4. Cumulative Delay Asset Tracking
-Total_Delay_Minutes = SUM('Airline_Delay_Cause'[arr_delay])
+During development, the model evolved through three structural phases to tackle the extreme class imbalance (97% Delayed vs 3% On-Time flights). Below is the comprehensive benchmark matrix:
+
+| Metric Name | Model 1 (Standard RF) | Model 2 (Balanced RF) | Model 3 (Tuned Gradient Boosting) |
+| :--- | :---: | :---: | :---: |
+| **Overall Model Accuracy** | 96.96% | 70.76% | **90.64%** |
+| **Delayed Flight Recall** | 99.99% | 71.01% | **90.58%** |
+| **On-Time Flight Recall** | 0.26% (Fail) | 62.55% | **92.38%** |
+
+###  Core Engineering Insights (Why Model 3 Won):
+* **Label Encoding vs One-Hot Encoding:** Shifting away from Label Encoding eliminated false mathematical hierarchies (e.g., Airport ID 3 > Airport ID 1), streamlining feature isolation.
+* **Volume Density Mapping:** Adding the `arr_flights` feature provided the model with crucial context regarding air traffic congestion.
+* **Sequential Error Correction:** Using Gradient Boosting allowed the pipeline to train sequentially, with each new tree directly optimizing the classification errors made by the previous ones.
+
+---
+
+##  Power BI Dashboard Highlights
+* **Core DAX Metrics:** Automated key performance indicators (KPIs) including Average Delay Minutes, Year-over-Year Operational Volatility, and Carrier Risk Indexes.
+* **Root-Cause Segmentation:** Divided delays into structural pillars: Air Carrier Issues, Weather Disruptions, National Aviation System (NAS) Gridlocks, and Security/Late Aircraft propagation.
+* **Scannable UI/UX:** Built using dynamic tooltips, conditional formatting heatmaps, and clear page hierarchies for executive decision-making.
+
+---
+
+## 🛠️ Tech Stack & Libraries Used
+* **Data Visualization:** Microsoft Power BI Desktop (DAX, Power Query)
+* **Language/Environment:** Python 3.11 (VS Code / PowerShell terminal)
+* **Data Wrangling:** Pandas, NumPy
+* **Machine Learning Framework:** Scikit-Learn (`GradientBoostingClassifier`, `RandomForestClassifier`, `train_test_split`)
+
+---
+
+## 🚀 How to Run the Predictive Engine Local Setup
+
+1. Clone this repository to your local system:
+   ```bash
+   git clone [https://github.com/YOUR_GITHUB_USERNAME/airline-performance-analysis.git](https://github.com/YOUR_GITHUB_USERNAME/airline-performance-analysis.git)
